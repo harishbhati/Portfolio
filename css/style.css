@@ -3570,7 +3570,6 @@ blockquote {
 	float: right;
 	width: 50%;
 	min-height: 482px;
-	border: 1px solid #585d65;
 	border-radius: 30px;
 	-moz-border-radius: 30px;
 	-webkit-border-radius: 30px;
@@ -5826,8 +5825,122 @@ section.elementor-element:last-child .section {
 	}
 }
 
+/* Offset native anchor scrolling so sections clear the fixed navbar (top:40 + height:80 = 120px + buffer) */
+html {
+	scroll-padding-top: 130px;
+}
+
+/* --- Custom fixes --- */
+
+/* Hide typed.js source strings — typed.js reads these from the DOM even when hidden */
+.typing-subtitle {
+	display: none;
+}
+
+/* Prevent hero subtitle container from collapsing too small */
+.section.started .started-content .h-subtitles {
+	height: auto;
+	min-height: 20px;
+}
+
+/* Prevent button text + icon from wrapping to separate lines */
+a.btn,
+.btn,
+button {
+	white-space: nowrap;
+}
+
+/* In Progress badge on portfolio cards */
+.box-item .image {
+	position: relative;
+}
+.badge-inprogress {
+	position: absolute;
+	top: 14px;
+	left: 14px;
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 5px 14px;
+	background: rgba(15, 23, 42, 0.82);
+	border: 1px solid #f97316;
+	border-radius: 30px;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #f97316;
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	z-index: 3;
+	pointer-events: none;
+}
+.badge-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: #f97316;
+	display: inline-block;
+	animation: badge-pulse 1.4s ease-in-out infinite;
+	flex-shrink: 0;
+}
+@keyframes badge-pulse {
+	0%, 100% { opacity: 1; transform: scale(1); }
+	50%       { opacity: 0.35; transform: scale(0.85); }
+}
+
 @media (max-width: 580px) {
 	.elementor-column.elementor-col-25, .elementor-column[data-col="25"] {
 		width: 50%!important;
 	}
+}
+
+/* Hero roles bar with pipe separators */
+.hero-roles-bar {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	gap: 0;
+	margin: 0 0 14px 0;
+}
+.hero-role-item {
+	display: inline-block;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #68e0cf;
+	line-height: 1.2;
+	white-space: nowrap;
+}
+.hero-role-pipe {
+	display: inline-block;
+	color: #68e0cf;
+	opacity: 0.55;
+	margin: 0 11px;
+	font-size: 14px;
+	font-weight: 200;
+	line-height: 1;
+}
+
+/* Immediate Joiner badge */
+.hero-badge-row {
+	margin: 0 0 26px 0;
+}
+.badge-immediate-joiner {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 5px 14px;
+	background: rgba(104, 224, 207, 0.08);
+	border: 1px solid rgba(104, 224, 207, 0.4);
+	border-radius: 30px;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: #68e0cf;
+}
+.badge-immediate-joiner .fas {
+	font-size: 9px;
 }

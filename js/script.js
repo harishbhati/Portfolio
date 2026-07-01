@@ -59,7 +59,7 @@
 		var url_hash = location.hash;
 		var sectionElem = $(url_hash);
 		if(url_hash.indexOf('#section-') == 0 && sectionElem.length){
-			$('body, html').animate({scrollTop: $(url_hash).offset().top - 68}, 400);
+			$('body, html').animate({scrollTop: $(url_hash).offset().top - 130}, 400);
 		}
 
 	});
@@ -289,27 +289,6 @@
 		$('.mouse-btn').show();
 	}
 
-	/*
-		Initialize portfolio items
-	*/
-	if ( $('.section.works .box-items').length ) {
-		var container = $('.section.works .box-items');
-		container.imagesLoaded(function() {
-			$container.isotope({
-				itemSelector: '.box-col'
-			});
-		});
-	}
-
-	/*
-		Filter items on button click
-	*/
-	$('.filters').on( 'click', '.btn-group', function() {
-		var filterValue = $(this).find('input').val();
-		$container.isotope({ filter: filterValue });
-		$('.filters .btn-group label').removeClass('glitch-effect');
-		$(this).find('label').addClass('glitch-effect');
-	});
 	
 	/*
 		Gallery popup
@@ -389,19 +368,30 @@
 		Gallery popup
 	*/
 	$('.has-popup-gallery').on('click', function() {
-        var gallery = $(this).attr('href');
-    
-        $(gallery).magnificPopup({
-            delegate: 'a',
-            type:'image',
-            closeOnContentClick: false,
-            mainClass: 'mfp-fade',
-            removalDelay: 160,
-            fixedContentPos: false,
-            gallery: {
-                enabled: true
-            }
-        }).magnificPopup('open');
+        var galleryId = $(this).attr('href');
+        var items = [];
+        $(galleryId).find('a').each(function() {
+            items.push({ src: $(this).attr('href'), type: 'image' });
+        });
+
+        if (items.length) {
+            $.magnificPopup.open({
+                items: items,
+                type: 'image',
+                closeOnContentClick: false,
+                mainClass: 'mfp-fade',
+                removalDelay: 160,
+                fixedContentPos: false,
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0, 1]
+                },
+                image: {
+                    tError: '<a href="%url%">The image</a> could not be loaded.'
+                }
+            });
+        }
 
         return false;
     });
